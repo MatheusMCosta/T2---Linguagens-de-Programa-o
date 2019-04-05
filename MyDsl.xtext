@@ -1,10 +1,17 @@
-grammar org.example.domainmodel.Domainmodel with
-                                      org.eclipse.xtext.common.Terminals
- 
-generate domainmodel "http://www.example.org/domainmodel/Domainmodel"
- 
+grammar org.xtext.example.mydsl.MyDsl with org.eclipse.xtext.common.Terminals
+
+generate myDsl "http://www.xtext.org/example/mydsl/MyDsl"
+
 Model:
-    greetings+=Operation*;
-  
-Operation:
-    INT | ID | '+' | '(' Operation* ')';
+	greetings+=Greeting*;
+	
+Greeting:
+	'(' name=Operations ')' ;
+	
+Operations:
+	INT | ID | '+' + SpaceInt* | '-' + SpaceInt* | '*' + SpaceInt* | '/' + SpaceInt* | '(' + Operations + ')'
+;
+
+SpaceInt:
+	(WS + INT)*
+;
